@@ -814,7 +814,11 @@ INSCameraManager.shared().currentCamera?.serialNumber
 INSCameraManager.shared().currentCamera?.firmwareRevision
 ```
 
-***
+### 关闭相机
+控制相机关闭的指令，目前仅支持X5相机。示例如下:
+```swift
+INSCameraManager.socket().commandManager.closeCamera({_ in})
+```
 
 ### LOG管理
 
