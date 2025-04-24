@@ -16,6 +16,20 @@ The iOS SDK is mainly used to connect, set and obtain camera parameters, control
 
 Supported models: X5, X4, X3, ONE X2, ONE X, ONE RS, ONE RS 1-Inch.
 
+# Table of contents
+* [INSCameraSDK](#inscamerasdk)
+	* [Environmental preparation](#environmental-preparation)
+	* [Camera connection and status](#camera-connection-and-status)
+	* [Shooting mode](#shooting-mode)
+	* [Camera parameters](#camera-parameters)
+	* [Photo Capture](#photo-capture)
+	* [Video Recording](#video-recording)
+	* [Preview](#preview)
+	* [Other features](#other-features)
+* [INSMediaSDK](#insmediasdk)
+	* [Export (video)](#export-video)
+	* [Export (image)](#export-image)
+
 # INSCameraSDK
 
 ## Environmental preparation
