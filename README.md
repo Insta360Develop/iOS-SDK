@@ -543,7 +543,7 @@ INSPhotographyOptionsTypeRawCaptureType = 25,
 
 #### In-camera Stitching (Bool)
 
-When taking pictures, stitch panoramic images inside the camera without the need for external stitching. Only cameras after X4 and X4 are supported.
+When taking pictures, stitch panoramic images inside the camera without the need for external stitching. Only cameras after X4 are supported.
 
 ```swift
 var typeArray = [INSCameraOptionsType]()
