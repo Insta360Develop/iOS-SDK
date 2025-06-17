@@ -271,6 +271,36 @@ INSCameraManager.shared().commandManager.setOptions(cameraOptions, forTypes: opt
 
 Camera parameters are usually divided into two categories. The first is a specific numerical value, such as exposure ISO, EV value, shutter speed, etc. The second is an enumeration value, such as shooting mode, exposure mode, etc. For the former, you can directly assign values to the parameters in the `INSPhotographyOptions` and send them to the camera. For the latter, you need to check the meaning represented by the corresponding enumeration in the table, and then assign the corresponding enumeration value to the `INSPhotographyOptions`. The following is the relationship between resolution and its corresponding enumeration value. Other parameters can be viewed through the `"common_camera_setting_proto json"` file in the SDK project.
 
+```swift
+
+INSCameraManager.socket().commandManager.fetchStorageFileInfo(with: .json, completion: {error, fileResp in
+    if let err = error {
+        return
+    }
+    
+    guard let fileResp = fileResp else {
+        return
+    }
+    
+    print("Info: fetchStorageFileInfo Success!")
+    
+    INSCameraManager.socket().commandManager.fetchResource(withURI: fileResp.uri, toLocalFile: outputURL, progress: {progress in
+    }, completion: { error in
+        
+        if let error = error {
+            print("Error: fetchResource Failed!")
+            return
+        }
+        
+        print("Info: fetchResource Success!")
+        
+        completion?()
+    })
+    
+})
+
+```
+
 ### Get camera parameters
 
 Get the camera through the method: `getPhotographyOptions` get. The main imported parameters required are three `functionMode` and `optionTypes`, as well as a closure callback.
