@@ -257,6 +257,36 @@ INSCameraManager.shared().commandManager.setOptions(cameraOptions, forTypes: opt
 
 相机参数通常分为两类，第一种为具体的数值，如曝光iso，ev值，快门速度等。第二种为枚举值，如拍摄模式，曝光模式等。对于前者，能够直接向 `INSPhotographyOptions` 中的参数赋值，并发送至相机。对于后者，则需查阅表中对应枚举所表示的含义，再将对应的枚举值赋值给`INSPhotographyOptions`。如下所示为分辨率与其对应枚举值的关系。其他参数可通过SDK工程中的`“common_camera_setting_proto.json”`文件查看。
 
+```swift
+
+INSCameraManager.socket().commandManager.fetchStorageFileInfo(with: .json, completion: {error, fileResp in
+    if let err = error {
+        return
+    }
+    
+    guard let fileResp = fileResp else {
+        return
+    }
+    
+    print("Info: fetchStorageFileInfo Success!")
+    
+    INSCameraManager.socket().commandManager.fetchResource(withURI: fileResp.uri, toLocalFile: outputURL, progress: {progress in
+    }, completion: { error in
+        
+        if let error = error {
+            print("Error: fetchResource Failed!")
+            return
+        }
+        
+        print("Info: fetchResource Success!")
+        
+        completion?()
+    })
+    
+})
+
+```
+
 ### 获取相机参数
 
 获取相机通过方法：`getPhotographyOptions`获取。需要的主要入参有三个`functionMode`和`optionTypes`，以及一个闭包回调。
