@@ -1,3 +1,6 @@
+# Note:
+Currently on `V1.8.2-build4` branch. To view other versions, please switch branches.
+
 # How to get?
 
 Please visit [https://www.insta360.com/sdk/apply](https://www.insta360.com/sdk/apply) to apply for the latest SDK.
