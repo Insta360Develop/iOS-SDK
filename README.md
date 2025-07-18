@@ -974,6 +974,18 @@ INSCameraManager.shared().commandManager.getOptionsWithTypes(optionTypes) { (err
 }
 ```
 
+### Get the camera lens type
+```swift
+INSCameraManager.socket().commandManager.getActiveSensor { error, device, str1, str2 in
+    if error != nil {
+        self.showAlert("HDR Take:", "Failed!")
+        return
+    }
+    
+    print("device:\(device)")
+}
+```
+
 ### Get activation time
 
 ```swift
