@@ -989,6 +989,17 @@ INSCameraManager.shared().commandManager.getOptionsWithTypes(optionTypes) { (err
     print("battery: \(options.batteryStatus!.batteryLevel)")
 }
 ```
+### 获取相机镜头类型
+```swift
+INSCameraManager.socket().commandManager.getActiveSensor { error, device, str1, str2 in
+    if error != nil {
+        self.showAlert("HDR Take:", "Failed!")
+        return
+    }
+    
+    print("device:\(device)")
+}
+```
 
 ### 获取激活时间
 
