@@ -536,7 +536,7 @@ Correspondence between resolution and enumeration values
 
 ##### Record
 
-- The property in `INSPhotographyOptions` is: `photoSizeForJson`
+- The property in `INSPhotographyOptions` is: `videoResolutionForJson`
 - The mapping table is too long and is not shown here. Please move to the `record_resolution` list in the `common_camera_setting_proto.json` file
 
 #### Exposure mode
@@ -662,6 +662,8 @@ INSCameraManager.shared().commandManager.takePicture(with: nil, completion: { (e
 
 ## Video Recording
 
+### Normal Recording
+
 Start recording:
 ```python
 INSCameraManager.shared().commandManager.startCapture(with: nil, completion: { (err) in
@@ -681,6 +683,34 @@ INSCameraManager.shared().commandManager.stopCapture(with: nil, completion: { (e
     }
 })
 ```
+### Timelapse Recording
+Starting and stopping recording is the same as regular recording, but there are some caveats：
+
+- For X5 and later models, if you need to save IMU data while recording timelapse, you must use our provided SDK. Recording with our app does not save IMU data.
+
+- To trigger IMU data storage, you must call the following command:
+  
+Start recording:
+```
+/*!
+ * Start time lapse capture. For ONE X, you can input `INSExtraInfo` via options if the `INSTimelapseMode` is image.
+ *
+ * availability(ONE, ONE X)
+ */
+- (void)startCaptureTimelapseWithOptions:(INSStartCaptureTimelapseOptions  * _Nonnull)options completion:(void(^)(NSError * _Nullable error))completion;
+```
+
+Stop recording
+```
+/*!
+ * Start time lapse capture
+ *
+ * availability(ONE)
+ */
+- (void)stopCaptureTimelapseWithCompletion:(void(^)(NSError * _Nullable error,
+                                                    INSCameraVideoInfo * _Nullable videoInfo))completion;
+```
+
 
 ## Preview
 
