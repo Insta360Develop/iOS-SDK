@@ -1202,6 +1202,61 @@ NotificationCenter.default.addObserver(self,
 
 **说明**：高温可能会导致设备性能下降甚至损坏。收到此通知后，应建议用户停止使用，待设备冷却后再继续使用。
 
+### Wi-Fi 国家码及相机Wi-Fi信道设置说明
+**注意：** 设置国家码后必须重启相机 Wi-Fi，否则设置不会生效。信道依赖于国家码，每个国家对应不同的信道列表。重启相机之后重新获取信道列表，即可切换信道（蓝牙或Wi-Fi连接都支持）
+
+#### 获取当前国家码
+```Swift
+func getWifiCountryCode() {
+    let optionTypes = [
+        NSNumber(value: INSCameraOptionsType.wifiChannelList.rawValue)
+    ]
+    
+    INSCameraManager.shared().commandManager.getOptionsWithTypes(optionTypes) { err, options, successTypes in
+        guard let options = options else {
+            print("ERROR: \(err?.localizedDescription ?? "Unknown error")")
+            return
+        }
+        self.printWifiChannelList(options.wifiChannelList)
+    }
+}
+```
+说明：
+- 使用 getOptionsWithTypes 获取相机当前 Wi-Fi 频道列表及国家码信息。
+- 回调返回 options.wifiChannelList，可以通过自定义打印函数查看内容。
+
+#### 设置国家码
+```Swift
+func setCountryCode(to countryCode: String = "JP") {
+    let optionTypes = [
+        NSNumber(value: INSCameraOptionsType.wifiChannelList.rawValue)
+    ]
+    
+    let wifiChannelList = INSCameraWifiChannelList(countryCode: countryCode)
+    let options = INSCameraOptions()
+    options.wifiChannelList = wifiChannelList
+    
+    INSCameraManager.shared().commandManager.setOptions(options, forTypes: optionTypes) { error, types in
+        if let error = error {
+            print("Failed to set country code: \(error.localizedDescription)")
+        } else {
+            print("Country code set to \(countryCode). ⚠️ Wi-Fi restart required to apply changes.")
+        }
+    }
+}
+```
+说明：
+- 参数 countryCode 支持任意 ISO 国家码，例如 "JP"、"US"、"CN"。
+- 设置完成后，需要重启相机 Wi-Fi 才能生效。
+- 回调可用于确认设置是否成功。
+
+#### 重启Wi-Fi并设置信道
+
+```Swift
+INSCameraManager.shared().commandManager.resetCameraWifi(channel)
+```
+
+
 ### 错误码
 
 ```objective-c
