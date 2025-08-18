@@ -1263,7 +1263,7 @@ func setCountryCode(to countryCode: String = "JP") {
 - After the settings are completed, you need to restart the camera Wi-Fi for it to take effect.
 - A callback can be used to confirm whether the setup was successful.
 
-#### Restart and set the channel
+#### Restart WIFI and set the channel
 
 ```Swift
 INSCameraManager.shared().commandManager.resetCameraWifi(channel)
