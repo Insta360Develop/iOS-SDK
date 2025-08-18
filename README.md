@@ -1212,6 +1212,64 @@ NotificationCenter.default.addObserver(self,
 
 **Note:** High temperatures may cause device performance degradation or even damage. Upon receiving this notice, users should be advised to stop using the device and wait until it cools down before continuing to use it.
 
+### Wi-Fi Country Code and Camera Wi-Fi Channel Settings
+
+**Note：** After setting the country code, you must restart the camera's Wi-Fi, otherwise the setting will not take effect. The channel depends on the country code, and each country has a different channel list. After restarting the camera, you can retrieve the channel list and switch channels (supports both Bluetooth and Wi-Fi connections)
+
+#### Get the current country code
+
+```Swift
+func getWifiCountryCode() {
+    let optionTypes = [
+        NSNumber(value: INSCameraOptionsType.wifiChannelList.rawValue)
+    ]
+    
+    INSCameraManager.shared().commandManager.getOptionsWithTypes(optionTypes) { err, options, successTypes in
+        guard let options = options else {
+            print("ERROR: \(err?.localizedDescription ?? "Unknown error")")
+            return
+        }
+        self.printWifiChannelList(options.wifiChannelList)
+    }
+}
+```
+**Note:**
+- Use getOptionsWithTypes to obtain the camera's current Wi-Fi channel list and country code information.
+- The callback returns options.wifiChannelList, and the content can be viewed through the custom print function.
+
+#### Set country code
+
+```Swift
+func setCountryCode(to countryCode: String = "JP") {
+    let optionTypes = [
+        NSNumber(value: INSCameraOptionsType.wifiChannelList.rawValue)
+    ]
+    
+    let wifiChannelList = INSCameraWifiChannelList(countryCode: countryCode)
+    let options = INSCameraOptions()
+    options.wifiChannelList = wifiChannelList
+    
+    INSCameraManager.shared().commandManager.setOptions(options, forTypes: optionTypes) { error, types in
+        if let error = error {
+            print("Failed to set country code: \(error.localizedDescription)")
+        } else {
+            print("Country code set to \(countryCode). ⚠️ Wi-Fi restart required to apply changes.")
+        }
+    }
+}
+```
+**Note:**
+- The parameter countryCode supports any ISO country code, such as "JP", "US", and "CN".
+- After the settings are completed, you need to restart the camera Wi-Fi for it to take effect.
+- A callback can be used to confirm whether the setup was successful.
+
+#### Restart and set the channel
+
+```Swift
+INSCameraManager.shared().commandManager.resetCameraWifi(channel)
+```
+
+
 ### Error code
 
 ```objective-c
