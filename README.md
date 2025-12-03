@@ -21,6 +21,7 @@ Supported models: X5, X4 Air, X4, X3, ONE X2, ONE X, ONE RS, ONE RS 1-Inch.
 
 # Table of contents
 
+* [Environmental preparation](#environmental-preparation)
 * [INSCameraSDK](#inscamerasdk)
 	* [Connection Module](#connection-module)
 	* [Wi-Fi Control Module](#wi-fi-control-module)
@@ -40,7 +41,16 @@ Supported models: X5, X4 Air, X4, X3, ONE X2, ONE X, ONE RS, ONE RS 1-Inch.
 	* [Logging](#logging)
 * [FAQ](#faq)
 
+# Environmental preparation
 
+1. Locate the following dependency libraries in the provided sample project and drag them into the target project:
+```
+INSCoreMedia.xcframework
+INSCameraServiceSDK.xcframework
+INSCameraSDK.xcframework
+SSZipArchive.xcframework
+```
+2. In Xcode's Build Settings, add the build option TO_B_SDK=1, and then try compiling to confirm that the project can build normally.
 
 # Camera SDK Function
 
