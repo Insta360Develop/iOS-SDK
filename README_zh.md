@@ -34,10 +34,10 @@ iOS SDK主要用于连接、设置和获取相机参数、控制相机进行拍�
 
 1. 在提供的示例工程中找到以下依赖库，并将它们拖入目标工程：
 ```
-- INSCoreMedia.xcframework
-- INSCameraServiceSDK.xcframework
-- INSCameraSDK.xcframework
-- SSZipArchive.xcframework
+INSCoreMedia.xcframework
+INSCameraServiceSDK.xcframework
+INSCameraSDK.xcframework
+SSZipArchive.xcframework
 ```
 2. 在 Xcode 的 Build Settings 中添加编译选项 TO_B_SDK=1，然后尝试编译以确认工程能够正常构建。
    
